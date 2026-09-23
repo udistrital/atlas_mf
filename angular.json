@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "atlas_externo_mf": {
+    "atlas_mf": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -80,13 +80,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "atlas_externo_mf:build:production"
+              "buildTarget": "atlas_mf:build:production"
             },
             "development": {
-              "buildTarget": "atlas_externo_mf:build:development"
+              "buildTarget": "atlas_mf:build:development"
             },
             "local": {
-              "buildTarget": "atlas_externo_mf:build:local"
+              "buildTarget": "atlas_mf:build:local"
             }
           },
           "defaultConfiguration": "local"
@@ -94,7 +94,7 @@
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "buildTarget": "atlas_externo_mf:build"
+            "buildTarget": "atlas_mf:build"
           }
         },
         "test": {
