@@ -20,7 +20,7 @@
     </div>
     <mat-form-field appearance="outline">
       <mat-label>Buscar en datos cargados</mat-label>
-      <input matInput [(ngModel)]="search" />
+      <input matInput [ngModel]="search()" (ngModelChange)="search.set($event)"/>
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>

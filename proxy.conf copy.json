@@ -1,11 +1,8 @@
 {
-  "/atlas_mid": {
-    "target": "http://localhost:8082",
-    "secure": false,
+  "/observatorios_crud": {
+    "target": "http://localhost:8000",
+    "secure": true,
     "changeOrigin": true,
-    "pathRewrite": {
-      "^/atlas_mid": ""
-    },
     "logLevel": "debug"
   },
   "/gestor_documental_mid": {

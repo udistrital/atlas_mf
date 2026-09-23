@@ -1,19 +1,41 @@
 import { Injectable } from '@angular/core';
 
 export interface TurnstileRenderOptions {
+
   sitekey: string;
 
-  callback: (token: string) => void;
+  action?: string;
 
-  'expired-callback'?: () => void;
+  callback:
+    (token: string) => void;
 
-  'error-callback'?: (
-    errorCode?: string
-  ) => void;
+  'expired-callback'?:
+    () => void;
 
-  theme?: 'light' | 'dark' | 'auto';
+  'timeout-callback'?:
+    () => void;
 
-  size?: 'normal' | 'compact' | 'flexible';
+  'error-callback'?:
+    (
+      errorCode?: string
+    ) => void;
+
+  retry?:
+    'auto' |
+    'never';
+
+  'retry-interval'?:
+    number;
+
+  theme?:
+    'light' |
+    'dark' |
+    'auto';
+
+  size?:
+    'normal' |
+    'compact' |
+    'flexible';
 }
 
 export interface TurnstileApi {
@@ -94,6 +116,9 @@ export class TurnstileLoaderService {
           };
 
           script.onerror = () => {
+
+            script.remove();
+
             this.loadPromise = null;
 
             reject(
@@ -140,7 +165,7 @@ export class TurnstileLoaderService {
           return;
         }
 
-        if (attempts >= 50) {
+        if (attempts >= 100) {
 
           window.clearInterval(
             interval

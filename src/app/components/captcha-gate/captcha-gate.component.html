@@ -23,7 +23,7 @@
 
       @if (siteKey) {
 
-      <app-turnstile-widget [siteKey]="siteKey" (tokenChange)="onToken($event)" (expired)="onExpired()"
+      <app-turnstile-widget [siteKey]="siteKey" [action]="action" (tokenChange)="onToken($event)" (expired)="onExpired()"
         (widgetError)="onWidgetError($event)" />
 
       } @else {
@@ -44,10 +44,17 @@
 
       @if (verificationError()) {
 
-      <p class="captcha-error">
-        {{ verificationError() }}
-      </p>
+        <p class="captcha-error">
+          {{ verificationError() }}
+        </p>
 
+        <button
+          type="button"
+          (click)="retryTurnstile()"
+          [disabled]="verifying()"
+        >
+          Reintentar verificación
+        </button>
       }
 
     </div>
