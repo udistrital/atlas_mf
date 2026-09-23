@@ -88,7 +88,7 @@ export class ObservatoriosReadService {
   }
 
   obtenerEstructura(id: string | number): Observable<EstructuraEvidencia> {
-    return this.api.get<EstructuraEvidencia>(`/estructuras-evidencias/${id}/`);
+    return this.api.get<EstructuraEvidencia>(`/estructuras/${id}`);
   }
 
   listarDatos(
@@ -111,8 +111,8 @@ export class ObservatoriosReadService {
     );
   }
 
-  listarDatosEstructura(estructuraId: string | number, params: Record<string, unknown>
-  ): Observable<PaginatedResponse<RegistroEstructura>> {return this.api.get<PaginatedResponse<RegistroEstructura>>(`/campos/datos/${estructuraId}/`, params);
+  listarDatosEstructura(estructuraId: string | number,params: Record<string, unknown>): Observable<PaginatedResponse<RegistroEstructura>> {
+    return this.api.get<PaginatedResponse<RegistroEstructura>>(`/estructuras/${estructuraId}/datos`,params);
   }
 
   listarDashboards(observatorio?: string | number | null): Observable<Dashboard[]> {

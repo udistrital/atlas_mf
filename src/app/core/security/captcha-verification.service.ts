@@ -1,4 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient
+} from '@angular/common/http';
 
 import {
   Injectable
@@ -15,6 +17,7 @@ import {
 export interface CaptchaVerificationResponse {
   success: boolean;
   message?: string;
+  code?: string;
 }
 
 @Injectable({
@@ -29,14 +32,22 @@ export class CaptchaVerificationService {
 
   verify(
     token: string
-  ): Observable<CaptchaVerificationResponse> {
+  ): Observable<
+    CaptchaVerificationResponse
+  > {
 
     return this.http.post<
       CaptchaVerificationResponse
     >(
-      environment.TURNSTILE_VERIFY_URL,
+      environment
+        .TURNSTILE_VERIFY_URL,
+
       {
         token
+      },
+
+      {
+        withCredentials: true
       }
     );
   }

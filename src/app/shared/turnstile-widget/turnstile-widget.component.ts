@@ -33,6 +33,9 @@ export class TurnstileWidgetComponent
   })
   siteKey = '';
 
+  @Input()
+  action = 'atlas_external_access';
+
   @Output()
   readonly tokenChange =
     new EventEmitter<string>();
@@ -61,7 +64,7 @@ export class TurnstileWidgetComponent
   constructor(
     private readonly loader:
       TurnstileLoaderService
-  ) {}
+  ) { }
 
   async ngAfterViewInit(): Promise<void> {
 
@@ -74,23 +77,40 @@ export class TurnstileWidgetComponent
         this.api.render(
           this.container.nativeElement,
           {
-            sitekey: this.siteKey,
+            sitekey:
+              this.siteKey,
 
-            theme: 'auto',
+            action:
+              this.action,
 
-            callback: (
-              token: string
-            ) => {
-              this.tokenChange.emit(
-                token
-              );
-            },
+            theme:
+              'auto',
+
+            retry:
+              'never',
+
+            callback:
+              (
+                token: string
+              ) => {
+
+                this.tokenChange.emit(
+                  token
+                );
+              },
 
             'expired-callback':
               () => {
 
                 this.expired.emit();
+              },
 
+            'timeout-callback':
+              () => {
+
+                this.widgetError.emit(
+                  'La verificación agotó el tiempo disponible.'
+                );
               },
 
             'error-callback':
@@ -100,9 +120,8 @@ export class TurnstileWidgetComponent
 
                 this.widgetError.emit(
                   code ||
-                  'Error desconocido'
+                  'Error al realizar la verificación.'
                 );
-
               }
           }
         );
