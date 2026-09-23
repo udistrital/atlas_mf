@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { CampoEstructura, Dashboard,EstructuraEvidencia,Grafico} from '../../core/models/domain.models';
+import { CampoEstructura, Dashboard, EstructuraEvidencia, Grafico } from '../../core/models/domain.models';
 import { ObservatoriosReadService } from '../../core/http/observatorios-read.service';
 import { NavigationStateService } from '../../core/state/navigation-state.service';
 import { LoadingStateComponent } from '../../shared/loading-state/loading-state.component';
@@ -17,11 +17,11 @@ import { DynamicDataTableComponent } from '../../shared/data-table/dynamic-data-
 import { GenericChartComponent } from '../../shared/generic-chart/generic-chart.component';
 
 @Component({
-    selector: 'app-caracteristica-consulta',
-    imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatPaginatorModule, LoadingStateComponent, DynamicDataTableComponent, GenericChartComponent],
-    templateUrl: './caracteristica-consulta.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrl: './caracteristica-consulta.component.scss'
+  selector: 'app-caracteristica-consulta',
+  imports: [FormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatPaginatorModule, LoadingStateComponent, DynamicDataTableComponent, GenericChartComponent],
+  templateUrl: './caracteristica-consulta.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './caracteristica-consulta.component.scss'
 })
 export class CaracteristicaConsultaComponent implements OnInit {
   readonly estructura = signal<EstructuraEvidencia | null>(null);
@@ -40,7 +40,7 @@ export class CaracteristicaConsultaComponent implements OnInit {
   docsPage = 0;
   docsPageSize = 10;
   docsTotal = 0;
-  search = '';
+  readonly search = signal('');
 
   readonly columnasDatos = computed(() => this.columnsFrom(this.estructura()?.mapeo || this.estructura()?.campos || []));
   readonly columnasArchivos = computed(() => this.columnsFrom(this.estructura()?.mapeo_archivos || this.estructura()?.campos || []));
@@ -53,7 +53,7 @@ export class CaracteristicaConsultaComponent implements OnInit {
     private readonly router: Router,
     private readonly service: ObservatoriosReadService,
     private readonly state: NavigationStateService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const stored = this.state.estructura();
@@ -165,9 +165,9 @@ export class CaracteristicaConsultaComponent implements OnInit {
   }
 
   private filterRows(rows: Record<string, unknown>[]): Record<string, unknown>[] {
-    const query = this.search.trim().toLowerCase();
-    if (!query) return rows;
-    return rows.filter((row) => Object.values(row).some((value) => String(value ?? '').toLowerCase().includes(query)));
+    const query = this.search().trim().toLowerCase();
+    if (!query) {return rows;}
+    return rows.filter((row) =>Object.values(row).some((value) =>String(value ?? '').toLowerCase().includes(query)));
   }
 
   private base64ToBlob(base64: string, type: string): Blob {

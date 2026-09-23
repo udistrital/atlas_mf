@@ -11,7 +11,7 @@ export class ApiClientService {
 
   get<T>(endpoint: string, params?: Record<string, unknown>, target: ApiTarget = 'MAIN_BACKEND'): Observable<T> {
     const url = this.buildUrl(endpoint, target);
-    return this.http.get<T>(url, { params: this.buildParams(params) });
+    return this.http.get<T>(url, {params: this.buildParams(params), withCredentials: target === 'MAIN_BACKEND'});
   }
 
   private buildUrl(endpoint: string, target: ApiTarget): string {
