@@ -7,7 +7,7 @@ export const environment = {
   MAIN_BACKEND: '/atlas_mid/v1',
   GESTOR_DOCUMENTAL: 'http://localhost:8034/v1/',
   //GESTOR_DOCUMENTAL: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/gestor_documental_mid/v1/',
-  
+
   TURNSTILE_SITE_KEY: '1x00000000000000000000AA',
   TURNSTILE_VERIFY_URL: '/atlas_mid/v1/security/turnstile/verify',
   TURNSTILE_ACTION: 'atlas_external_access',
