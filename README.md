@@ -1,4 +1,4 @@
-# atlas_externo_mf
+# atlas_mf
 
 Cliente público de consulta para Atlas/Observatorios construido en Angular 17 a partir de la estructura de `verificacion_firma_digital_mf` y la lógica de visualización del cliente Vue `observatorios_cliente`.
 
@@ -47,4 +47,4 @@ npm start
 npm run build:test
 npm run build:prod
 ```
-# atlas_externo_mf
+# atlas_mf

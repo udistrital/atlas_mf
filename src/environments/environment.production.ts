@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  appname: 'atlas_externo_mf',
+  appname: 'atlas_mf',
   appMenu: 'Atlas Externo',
   PRUEBAS_ASSETS: 'https://assets.portaloas.udistrital.edu.co/',
   ASSETS_SERVICE: 'https://assets.portaloas.udistrital.edu.co/',
@@ -19,9 +19,9 @@ export const environment = {
     storageKey: 'access_token'
   },
   TOKEN: {
-    CLIENTE_ID: 'G80k5fLBp9FJ3fDh9zN2IKrXwgYa',
+    CLIENTE_ID: 'PDpmPDMZfxv_xLxiZXyPr1s1Rk4a',
     RESPONSE_TYPE: 'id_token token',
-    REDIRECT_URL: 'https://atlasexterno.portaloas.udistrital.edu.co',
+    REDIRECT_URL: 'https://atlas.portaloas.udistrital.edu.co',
   },
   SECURITY: {
     maxApiRequestsPerMinute: 45,
