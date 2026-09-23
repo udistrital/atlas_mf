@@ -51,10 +51,9 @@
 
       <div class="search-box">
         <input
-          type="text"
-          [(ngModel)]="search"
-          placeholder="Buscar factor"
-        />
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+        >
         <mat-icon>search</mat-icon>
       </div>
     </div>

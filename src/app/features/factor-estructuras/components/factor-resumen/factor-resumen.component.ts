@@ -1,8 +1,8 @@
 
 import {
   Component,
-  Input,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -21,8 +21,5 @@ import {
     styleUrl: './factor-resumen.component.scss'
 })
 export class FactorResumenComponent {
-  @Input({
-    required: true
-  })
-  factor!: Factor;
+  readonly factor = input.required<Factor>();
 }

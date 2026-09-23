@@ -3,7 +3,7 @@
     <span>Factor de evaluación</span>
 
     <h1>
-      {{ factor.nombre || 'Factor' }}
+      {{ factor().nombre || 'Factor' }}
     </h1>
   </header>
 
@@ -24,7 +24,7 @@
 
         <p>
           {{
-            factor.descripcion ||
+            factor().descripcion ||
               'Sin descripción registrada.'
           }}
         </p>
@@ -37,7 +37,7 @@
 
         <strong>
           {{
-            factor.calificacion ??
+            factor().calificacion ??
               'Sin calificación registrada.'
           }}
         </strong>

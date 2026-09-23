@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy, input } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,9 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
     templateUrl: './dynamic-data-table.component.html'
 })
 export class DynamicDataTableComponent {
-  @Input() columns: string[] = [];
-  @Input() rows: Record<string, unknown>[] = [];
-  @Input() showFileAction = false;
+  readonly columns = input<string[]>([]);
+  readonly rows = input<Record<string, unknown>[]>([]);
+  readonly showFileAction = input(false);
   @Output() openFile = new EventEmitter<Record<string, unknown>>();
 
   value(row: Record<string, unknown>, column: string): string {

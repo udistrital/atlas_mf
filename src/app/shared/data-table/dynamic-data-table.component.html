@@ -1,23 +1,23 @@
-@if (columns.length === 0) {
+@if (columns().length === 0) {
   <div class="empty-state">No hay columnas configuradas para esta estructura.</div>
 } @else {
   <div class="table-shell">
     <table>
       <thead>
         <tr>
-          @for (column of columns; track trackByColumn($index, column)) {
+          @for (column of columns(); track trackByColumn($index, column)) {
             <th>{{ column }}</th>
           }
-          @if (showFileAction) { <th>Acciones</th> }
+          @if (showFileAction()) { <th>Acciones</th> }
         </tr>
       </thead>
       <tbody>
-        @for (row of rows; track $index) {
+        @for (row of rows(); track $index) {
           <tr>
-            @for (column of columns; track trackByColumn($index, column)) {
+            @for (column of columns(); track trackByColumn($index, column)) {
               <td>{{ value(row, column) }}</td>
             }
-            @if (showFileAction) {
+            @if (showFileAction()) {
               <td>
                 <button mat-icon-button color="primary" type="button" title="Ver archivo" (click)="openFile.emit(row)">
                   <mat-icon>visibility</mat-icon>
@@ -27,7 +27,7 @@
           </tr>
         } @empty {
           <tr>
-            <td [attr.colspan]="columns.length + (showFileAction ? 1 : 0)">No se encontraron datos activos.</td>
+            <td [attr.colspan]="columns().length + (showFileAction() ? 1 : 0)">No se encontraron datos activos.</td>
           </tr>
         }
       </tbody>

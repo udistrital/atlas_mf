@@ -2,10 +2,10 @@
 
 import {
   Component,
-  Input,
   OnInit,
   signal,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -41,10 +41,7 @@ import {
 export class AspectosListaComponent
   implements OnInit
 {
-  @Input({
-    required: true
-  })
-  caracteristicaId!: string | number;
+  readonly caracteristicaId = input.required<string | number>();
 
   readonly aspectos =
     signal<Aspecto[]>([]);
@@ -184,7 +181,7 @@ export class AspectosListaComponent
 
     this.facade
       .cargarAspectos(
-        this.caracteristicaId
+        this.caracteristicaId()
       )
       .subscribe({
         next: (aspectos) => {

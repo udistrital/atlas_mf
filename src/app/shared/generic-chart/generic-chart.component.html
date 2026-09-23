@@ -1,27 +1,56 @@
 <section class="chart-card">
   <header>
-    <span class="badge badge--muted">{{ tipo || 'gráfico' }}</span>
-    <h3>{{ titulo }}</h3>
+    <span class="badge badge--muted">
+      {{ tipo() || 'gráfico' }}
+    </span>
+
+    <h3>{{ titulo() }}</h3>
   </header>
 
-  @if (loading) {
-    <div class="chart-loading"><mat-spinner diameter="30"></mat-spinner> Cargando gráfico...</div>
-  } @else if (error) {
-    <div class="error-state">{{ error }}</div>
-  } @else if (points.length > 0) {
+  @if (loading()) {
+    <div class="chart-loading">
+      <mat-spinner diameter="30"></mat-spinner>
+      Cargando gráfico...
+    </div>
+
+  } @else if (error()) {
+    <div class="error-state">
+      {{ error() }}
+    </div>
+
+  } @else if (points().length > 0) {
     <div class="bars">
-      @for (point of points; track point.label) {
+
+      @for (point of points(); track point.label) {
         <div class="bar-row">
-          <span class="bar-label">{{ point.label }}</span>
-          <div class="bar-track"><span class="bar-fill" [style.width.%]="point.width"></span></div>
-          <strong>{{ point.value }}</strong>
+
+          <span class="bar-label">
+            {{ point.label }}
+          </span>
+
+          <div class="bar-track">
+            <span
+              class="bar-fill"
+              [style.width.%]="point.width">
+            </span>
+          </div>
+
+          <strong>
+            {{ point.value }}
+          </strong>
+
         </div>
       }
+
     </div>
+
   } @else {
     <details>
-      <summary>Ver configuración/datos recibidos</summary>
-      <pre>{{ raw | json }}</pre>
+      <summary>
+        Ver configuración/datos recibidos
+      </summary>
+
+      <pre>{{ raw() | json }}</pre>
     </details>
   }
 </section>

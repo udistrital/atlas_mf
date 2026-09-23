@@ -2,9 +2,9 @@
 
 import {
   Component,
-  Input,
   signal,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 
 import {
@@ -54,10 +54,7 @@ import {
     styleUrl: './estructura-evidencia.component.scss'
 })
 export class EstructuraEvidenciaComponent {
-    @Input({
-        required: true
-    })
-    estructura!: EstructuraEvidencia;
+    readonly estructura = input.required<EstructuraEvidencia>();
 
     readonly abierta =
         signal(false);
@@ -187,7 +184,7 @@ export class EstructuraEvidenciaComponent {
 
     tipoLabel(): string {
         return this.facade.tipoEvidencia(
-            this.estructura
+            this.estructura()
         ) === 'documental'
             ? 'Documental'
             : 'Tabla';
@@ -203,7 +200,7 @@ export class EstructuraEvidenciaComponent {
 
         this.facade
             .cargarContenido(
-                this.estructura,
+                this.estructura(),
                 this.pageIndex,
                 this.pageSize
             )

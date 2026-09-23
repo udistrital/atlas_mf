@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy, input} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,9 +14,9 @@ import { environment } from '../../../environments/environment';
     encapsulation: ViewEncapsulation.Emulated
 })
 export class HeaderComponent{
-  @Input('appname') appname: any;
-  @Input() menuApps: boolean = false;
-  @Input() notificaciones: boolean = false;
+  readonly appname = input<any>();
+  readonly menuApps = input<boolean>(false);
+  readonly notificaciones = input<boolean>(false);
 
 
   basePathAssets = environment.PRUEBAS_ASSETS;
@@ -25,20 +25,29 @@ export class HeaderComponent{
   langCookie: string = 'en';
 
   constructor(
-    private translate: TranslateService
+    private readonly translate: TranslateService
   ) {
     this.langCookie = getCookie('lang') || 'es';
-    this.translate.setDefaultLang(this.langCookie);
+
+    this.translate
+      .use(this.langCookie)
+      .subscribe();
   }
 
-  cambiarIdioma(lang: string) {
+  cambiarIdioma(lang: string): void {
     this.langCookie = lang;
+
     setCookie('lang', lang);
-    const event = new CustomEvent('lang', {
-      detail: { answer: lang },
-    });
-    window.dispatchEvent(event);
-    this.translate.setDefaultLang(lang);
+
+    window.dispatchEvent(
+      new CustomEvent('lang', {
+        detail: { answer: lang }
+      })
+    );
+
+    this.translate
+      .use(lang)
+      .subscribe();
   }
 }
 

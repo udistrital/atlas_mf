@@ -1,5 +1,5 @@
 {
-  "name": "atlas_externo_mf",
+  "name": "atlas_mf",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^22.1.1",
     "@angular/cdk": "22.1.1",
     "@angular/common": "^22.1.1",
     "@angular/compiler": "^22.1.1",
@@ -21,10 +20,9 @@
     "@angular/forms": "^22.1.1",
     "@angular/material": "22.1.1",
     "@angular/platform-browser": "^22.1.1",
-    "@angular/platform-browser-dynamic": "^22.1.1",
     "@angular/router": "^22.1.1",
-    "@ngx-translate/core": "^16.0.4",
-    "@ngx-translate/http-loader": "^16.0.1",
+    "@ngx-translate/core": "^18.0.0",
+    "@ngx-translate/http-loader": "^18.0.0",
     "dotenv": "^17.2.3",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.22.1",
@@ -35,14 +33,8 @@
     "@angular/build": "^22.1.3",
     "@angular/cli": "^22.1.3",
     "@angular/compiler-cli": "^22.1.1",
-    "@types/jasmine": "~5.1.0",
-    "istanbul-lib-instrument": "^6.0.3",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~6.0.3"
+    "jsdom": "^30.0.1",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.10"
   }
 }

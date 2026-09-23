@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -6,8 +6,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     selector: 'app-loading-state',
     imports: [MatProgressSpinnerModule],
     template: `
-    @if (loading) {
-      <div class="loading"><mat-spinner diameter="34"></mat-spinner><span>{{ label }}</span></div>
+    @if (loading()) {
+      <div class="loading"><mat-spinner diameter="34"></mat-spinner><span>{{ label() }}</span></div>
     }
   `,
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -16,6 +16,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   `]
 })
 export class LoadingStateComponent {
-  @Input() loading = false;
-  @Input() label = 'Cargando información...';
+  readonly loading = input(false);
+  readonly label = input('Cargando información...');
 }

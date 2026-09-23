@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnChanges, ChangeDetectionStrategy, signal, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ObservatoriosReadService } from '../../core/http/observatorios-read.service';
@@ -13,33 +13,49 @@ interface ChartPoint { label: string; value: number; width: number; }
     styleUrl: './generic-chart.component.scss'
 })
 export class GenericChartComponent implements OnChanges {
-  @Input({ required: true }) dashboardId!: string | number;
-  @Input({ required: true }) graficoId!: string | number;
-  @Input() tipo = '';
-  @Input() titulo = 'Gráfico';
+  readonly dashboardId = input.required<string | number>();
+  readonly graficoId = input.required<string | number>();
+  readonly tipo = input('');
+  readonly titulo = input('Gráfico');
 
-  loading = false;
-  error = '';
-  raw: Record<string, unknown> | null = null;
-  points: ChartPoint[] = [];
+  readonly loading = signal(false);
+  readonly error = signal('');
+  readonly raw = signal<Record<string, unknown> | null>(null);
+  readonly points = signal<ChartPoint[]>([]);
 
   constructor(private readonly service: ObservatoriosReadService) {}
 
   ngOnChanges(): void {
-    if (!this.dashboardId || !this.graficoId) return;
-    this.loading = true;
-    this.error = '';
-    this.service.construirGrafico(this.dashboardId, this.graficoId).subscribe({
-      next: (data) => {
-        this.raw = data;
-        this.points = this.toPoints(data);
-        this.loading = false;
-      },
-      error: () => {
-        this.error = 'No fue posible construir la gráfica.';
-        this.loading = false;
-      }
-    });
+    const dashboardId = this.dashboardId();
+    const graficoId = this.graficoId();
+
+    if (!dashboardId || !graficoId) {
+      return;
+    }
+
+    this.loading.set(true);
+    this.error.set('');
+    this.raw.set(null);
+    this.points.set([]);
+
+    this.service
+      .construirGrafico(
+        dashboardId,
+        graficoId
+      )
+      .subscribe({
+        next: data => {
+          this.raw.set(data);
+          this.points.set(this.toPoints(data));
+          this.loading.set(false);
+        },
+        error: () => {
+          this.error.set(
+            'No fue posible construir la gráfica.'
+          );
+          this.loading.set(false);
+        }
+      });
   }
 
   private toPoints(payload: Record<string, unknown>): ChartPoint[] {

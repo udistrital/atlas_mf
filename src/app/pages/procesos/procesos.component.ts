@@ -36,10 +36,10 @@ export class ProcesosComponent implements OnInit {
   readonly loading = signal(false);
   readonly error = signal('');
 
-  search = '';
+  readonly search = signal('');
 
   readonly factoresFiltrados = computed(() => {
-    const query = this.search.trim().toLowerCase();
+    const query = this.search().trim().toLowerCase();
 
     if (!query) {
       return this.factores();
